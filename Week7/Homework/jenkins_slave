@@ -2,12 +2,13 @@ pipeline {
     agent any
     parameters {
         string(name: 'NAME', defaultValue: 'Tuchsanai', description: 'Enter your name')
-        choice(name: 'CITY', choices: ['Bangkok','Bebbanburg', 'Mercia', 'East Anglia'], description: 'Choose your city')
+         string(name: 'AGE', defaultValue:'0', description: 'your age')
     }
     stages {
         stage('Example') {
             steps {
-                echo "Hello from Slave ${params.NAME} of ${params.CITY}"
+                echo "Slave ${params.NAME} of ${params.AGE}"
+                sh "python3 myscript.py ${params.NAME} --age ${params.AGE}"
                 
             }
         }
