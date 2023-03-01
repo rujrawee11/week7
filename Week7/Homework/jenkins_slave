@@ -8,7 +8,7 @@ pipeline {
         stage('Example') {
             steps {
                 echo "Slave ${params.NAME} of ${params.AGE}"
-                sh "python3 myscript.py ${params.NAME} --age ${params.AGE}"
+                sh "python3 Week7/Homework/myscript.py ${params.NAME} --age ${params.AGE}"
                 
             }
         }
