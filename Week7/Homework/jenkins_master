@@ -1,3 +1,5 @@
+      import json
+
 pipeline {
     agent any
 
@@ -11,9 +13,15 @@ pipeline {
 
         stage('Tigger the Slave Jobs') {
             steps {
+                script{
+              
+                with open('foo.txt') as f:
+                variables = json.load(f)
+               
                 echo 'Start Trigger to send name and age to slave'
-                build job: 'slave', parameters: [string(name: 'NAME', value: 'Alice'), string(name: 'Ages', value: '21')]
-            }
+                build job: 'slave', parameters: [string(name: 'NAME', value: variables.name), string(name: 'Ages', value: '21')]
+            
+            }}
         }
     }
 }
