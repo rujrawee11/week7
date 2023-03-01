@@ -12,7 +12,11 @@ pipeline {
         stage('Tigger the Slave Jobs') {
             steps {
                 echo 'Start Trigger to send name and age to slave'
-                build job: 'slave', parameters: [string(name: 'NAME', value: 'Alice'), string(name: 'Ages', value: '21')]
+                script {
+                    releasePackages = readJSON file: "${env.WORKSPACE}/data.json"
+                    build job: 'slave', parameters: [string(name: 'NAME', value: "$releasePackages.name"), string(name: 'Ages', value: "$releasePackages.age")]
+                    
+                }
             }
         }
     }
